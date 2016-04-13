@@ -19,7 +19,10 @@ import griffon.core.artifact.GriffonController;
 import griffon.metadata.ArtifactProviderFor;
 import griffon.transform.Threading;
 import griffon.util.CollectionUtils;
+import javafx.stage.Stage;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -28,6 +31,7 @@ import static griffon.util.GriffonNameUtils.isBlank;
 
 @ArtifactProviderFor(GriffonController.class)
 public class ContainerController extends AbstractGriffonController {
+    private static final Logger LOG = LoggerFactory.getLogger(ContainerController.class);
     private ContainerModel model;
     private ContainerView view;
 
@@ -58,6 +62,9 @@ public class ContainerController extends AbstractGriffonController {
 
     public void quit() {
         getApplication().shutdown();
+        getApplication().getWindowManager().getWindows().forEach(window -> {
+            ((Stage)window).close();
+        });
     }
 
     @Nullable
@@ -67,5 +74,10 @@ public class ContainerController extends AbstractGriffonController {
                 .findController(model.getMvcIdentifier(), EditorController.class);
         }
         return null;
+    }
+
+    @Override
+    public void mvcGroupDestroy() {
+        LOG.info("ContainerController-00000");
     }
 }

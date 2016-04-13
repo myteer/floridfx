@@ -18,9 +18,12 @@ package editor;
 import griffon.core.artifact.GriffonModel;
 import griffon.metadata.ArtifactProviderFor;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ArtifactProviderFor(GriffonModel.class)
 public class EditorModel extends AbstractGriffonModel {
+    private static final Logger LOG = LoggerFactory.getLogger(EditorModel.class);
     private Document document;
 
     public Document getDocument() {
@@ -29,5 +32,10 @@ public class EditorModel extends AbstractGriffonModel {
 
     public void setDocument(Document document) {
         firePropertyChange("document", this.document, this.document = document);
+    }
+
+    @Override
+    public void mvcGroupDestroy() {
+        LOG.info("EditorModel-00000");
     }
 }

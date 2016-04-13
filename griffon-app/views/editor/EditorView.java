@@ -21,11 +21,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 @ArtifactProviderFor(GriffonView.class)
 public class EditorView extends AbstractJavaFXGriffonView {
+    private static final Logger LOG = LoggerFactory.getLogger(EditorView.class);
     private EditorModel model;
     private ContainerView parentView;
     private String tabName;
@@ -54,6 +57,12 @@ public class EditorView extends AbstractJavaFXGriffonView {
 
     @Override
     public void mvcGroupDestroy() {
-        runInsideUIAsync(() -> parentView.getTabGroup().getTabs().remove(tab));
+        LOG.info("EditorView-00000");
+        /*runInsideUISync(() -> {
+                    LOG.info("111111");
+                    parentView.getTabGroup().getTabs().remove(tab);
+                    LOG.info("222222");
+                }
+        );*/
     }
 }

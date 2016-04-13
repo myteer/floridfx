@@ -18,6 +18,7 @@ package editor;
 import griffon.core.artifact.GriffonView;
 import griffon.core.controller.Action;
 import griffon.metadata.ArtifactProviderFor;
+import griffon.transform.Threading;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -28,6 +29,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,6 +39,7 @@ import java.util.Collections;
 
 @ArtifactProviderFor(GriffonView.class)
 public class ContainerView extends AbstractJavaFXGriffonView {
+    private static final Logger LOG = LoggerFactory.getLogger(ContainerView.class);
     private ContainerController controller;
     private ContainerModel model;
 
@@ -94,5 +98,10 @@ public class ContainerView extends AbstractJavaFXGriffonView {
     public File selectFile() {
         Window window = (Window) getApplication().getWindowManager().getStartingWindow();
         return fileChooser.showOpenDialog(window);
+    }
+
+    @Override
+    public void mvcGroupDestroy() {
+        LOG.info("ContainerView-00000");
     }
 }

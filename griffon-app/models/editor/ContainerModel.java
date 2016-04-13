@@ -18,9 +18,12 @@ package editor;
 import griffon.core.artifact.GriffonModel;
 import griffon.metadata.ArtifactProviderFor;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ArtifactProviderFor(GriffonModel.class)
 public class ContainerModel extends AbstractGriffonModel {
+    private static final Logger LOG = LoggerFactory.getLogger(ContainerModel.class);
     private static final String MVC_IDENTIFIER = "mvcIdentifier";
     private final DocumentModel documentModel = new DocumentModel();
     private String mvcIdentifier;
@@ -48,5 +51,10 @@ public class ContainerModel extends AbstractGriffonModel {
 
     public DocumentModel getDocumentModel() {
         return documentModel;
+    }
+
+    @Override
+    public void mvcGroupDestroy() {
+        LOG.info("ContainerModel-00000");
     }
 }

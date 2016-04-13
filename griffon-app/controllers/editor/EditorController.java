@@ -18,6 +18,8 @@ package editor;
 import griffon.core.artifact.GriffonController;
 import griffon.metadata.ArtifactProviderFor;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import static org.apache.commons.io.FileUtils.writeStringToFile;
 
 @ArtifactProviderFor(GriffonController.class)
 public class EditorController extends AbstractGriffonController {
+    private static final Logger LOG = LoggerFactory.getLogger(EditorController.class);
     private EditorModel model;
     private EditorView view;
 
@@ -55,5 +58,10 @@ public class EditorController extends AbstractGriffonController {
 
     public void closeFile() {
         destroyMVCGroup(getMvcGroup().getMvcId());
+    }
+
+    @Override
+    public void mvcGroupDestroy() {
+        LOG.info("EditorController-00000");
     }
 }
